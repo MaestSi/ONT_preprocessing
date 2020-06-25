@@ -284,7 +284,7 @@ if (!dir.exists(d2_preprocessing)) {
       cat(text = paste0("Mean read length (stdev) for sample BC", BC_val_curr, ": ", sprintf("%.0f", mean(ws)), " (", sprintf("%.0f", sd(ws)), ")"), sep = "\n")
       cat(text = paste0("Now filtering out reads shorter than ", min_seq_length, " , longer than ", max_seq_length, " and with quality lower than ", min_qual, " for sample BC", BC_val_curr), file = logfile, sep = "\n", append = TRUE)
       cat(text = paste0("Now filtering out reads shorter than ", min_seq_length, " , longer than ", max_seq_length, " and with quality lower than ", min_qual, " for sample BC", BC_val_curr), sep = "\n")
-      system(paste0("cat ", d2_preprocessing, "/BC", BC_val_curr, "_tmp1.fastq | ", NANOFILT, " -l ", min_seq_length, " --maxlength ", max_seq_length " -q ", min_qual, " --logfile ", d2_preprocessing, "/BC", BC_val_curr, "_NanoFilt.log > ", d3, "/BC", BC_val_curr, ".fastq"))
+      system(paste0("cat ", d2_preprocessing, "/BC", BC_val_curr, "_tmp1.fastq | ", NANOFILT, " -l ", min_seq_length, " --maxlength ", max_seq_length, " -q ", min_qual, " --logfile ", d2_preprocessing, "/BC", BC_val_curr, "_NanoFilt.log > ", d3, "/BC", BC_val_curr, ".fastq"))
       
       system(paste0(SEQTK, " seq -A ", d3, "/BC", BC_val_curr, ".fastq > ", d3, "/BC", BC_val_curr, ".fasta"))
       sequences_pass <- readDNAStringSet(paste0(d3, "/BC", BC_val_curr, ".fasta"), "fasta")
