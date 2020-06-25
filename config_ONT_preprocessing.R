@@ -35,7 +35,7 @@ gpu_basecalling_flag <- 0
 #conf_par_gpu is the name of the config file and the device for GPU-accelerated basecalling in case gpu_basecalling_flag <- 1
 conf_par_gpu <- " -c dna_r9.4.1_450bps_hac.cfg --device 'auto' "
 #fast_basecalling_flag_cpu <- 1 if you want to use the fast basecalling algorithm for R9.4 flow-cell; otherwise set fast_basecalling_flag_cpu <- 0 if you want to use the accurate but slow one
-fast_basecalling_flag_cpu <- 0
+fast_basecalling_flag_cpu <- 1
 #pair_strands_flag_cpu <- 1 if, in case a 1d2 kit and FLO-MIN107 flow-cell have been used, you want to perform 1d2 basecalling; otherwise set pair_strands_flag_cpu <- 0
 pair_strands_flag_cpu <- 0
 #set the maximum number of threads to be used
