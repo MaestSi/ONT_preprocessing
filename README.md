@@ -25,7 +25,7 @@ wget https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_version
 tar -xf ont-guppy-cpu_version_of_interest.tar.gz
 ```
 A directory _ont-guppy-cpu_ should have been created in your current directory.
-Then, after completing _CharONT_ installation, set the _BASECALLER_DIR_ variable in **config_ONT_preprocessing.R** to the full path to _ont-guppy-cpu/bin_ directory.
+Then, after completing _ONT_preprocessing_ installation, set the _BASECALLER_DIR_ variable in **config_ONT_preprocessing.R** to the full path to _ont-guppy-cpu/bin_ directory.
 
 **Installation**
 
