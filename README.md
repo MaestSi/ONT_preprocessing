@@ -54,6 +54,7 @@ Outputs (saved in \<fast5_dir\>\_analysis/analysis):
 
 * \<"sample_name".fastq\>: filtered reads in fastq format
 * \<"sample_name".fasta\>: filtered reads in fasta format
+* logfile.txt: logfile tracking the options used and the number of filtered reads
 
 Outputs (saved in \<fast5_dir\>\_analysis/qc):
 * Read length distributions and pycoQC report
