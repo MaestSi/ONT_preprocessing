@@ -63,6 +63,10 @@ if (!exists("max_seq_length")) {
   max_seq_length <- 10000000
 }
 
+if (!exists("extra_ends_trimming_length")) {
+  extra_ends_trimming_length <- 0
+}
+
 if (do_subsampling_flag == 1) {
   #d2 is the directory which is going to include processed reads
   d2 <- paste0(dirname(d1_tmp), "/", basename(d1_tmp), "_", num_fast5_files, "_subsampled_fast5_files_analysis")
@@ -133,6 +137,8 @@ cat(text = paste0("Flow-cell: ", flowcell), file = logfile, sep = "\n", append =
 cat(text = paste0("Flow-cell: ", flowcell), sep = "\n")
 cat(text = paste0("Kit: ", kit), file = logfile, sep = "\n", append = TRUE)
 cat(text = paste0("Kit: ", kit), sep = "\n")
+cat(text = paste0("Extra ends trimming length: ", extra_ends_trimming_length, " bp"), file = logfile, sep = "\n", append = TRUE)
+cat(text = paste0("Extra ends trimming length: ", extra_ends_trimming_length, " bp"), sep = "\n")
 
 if (skip_demultiplexing_flag != 1) {
   cat(text = paste0("Barcodes used in this experiment: ", paste0(BC_int, collapse = ", ")), file = logfile, sep = ", ", append = TRUE)
@@ -220,9 +226,9 @@ if (!dir.exists(d2_preprocessing)) {
     cat(text = paste0("Demultiplexing started at ", date()), file = logfile, sep = "\n", append = TRUE)
     cat(text = paste0("Demultiplexing started at ", date()), sep = "\n")
     if (require_two_barcodes_flag == 1) {
-      system(paste0(demultiplexer, " -r -i ", d2_basecalling, " -t ", num_threads, " -s ", d2_preprocessing, " --trim_barcodes --require_barcodes_both_ends --num_extra_bases_trim ", primers_length, " --barcode_kits \"", paste0(barcode_kits, collapse = " "), "\""))
+      system(paste0(demultiplexer, " -r -i ", d2_basecalling, " -t ", num_threads, " -s ", d2_preprocessing, " --trim_barcodes --require_barcodes_both_ends --num_extra_bases_trim ", extra_ends_trimming_length, " --barcode_kits \"", paste0(barcode_kits, collapse = " "), "\""))
     } else {
-      system(paste0(demultiplexer, " -r -i ", d2_basecalling, " -t ", num_threads, " -s ", d2_preprocessing, " --trim_barcodes --num_extra_bases_trim ", primers_length, " --barcode_kits \"", paste0(barcode_kits, collapse = " "), "\""))
+      system(paste0(demultiplexer, " -r -i ", d2_basecalling, " -t ", num_threads, " -s ", d2_preprocessing, " --trim_barcodes --num_extra_bases_trim ", extra_ends_trimming_length, " --barcode_kits \"", paste0(barcode_kits, collapse = " "), "\""))
     }
     cat(text = paste0("Demultiplexing finished at ", date()), file = logfile, sep = "\n", append = TRUE)
     cat(text = paste0("Demultiplexing finished at ", date()), sep = "\n")

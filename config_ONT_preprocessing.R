@@ -40,17 +40,17 @@ fast_basecalling_flag_cpu <- 1
 pair_strands_flag_cpu <- 0
 #set the maximum number of threads to be used
 num_threads <- 32
-#set length [bp] of PCR primers to be trimmed at both sides; if no primers were used set primers_length <- 0
-primers_length <- 0
+#trim extra_ends_trimming_length bp from both ends of reads
+extra_ends_trimming_length <- 0
 #if skip_demultiplexing_flag <- 1 demultiplexing is skipped; otherwise set skip_demultiplexing_flag <- 0
 skip_demultiplexing_flag <- 0
 #require_two_barcodes_flag <- 1 if you want to keep only reads with a barcode (tag) at both ends of the read; otherwise set require_two_barcodes_flag <- 0
 require_two_barcodes_flag <- 0
 #min read quality value
 min_qual <- 7
-#min_seq_length is the minimum sequence length to be retained
+#min_seq_length is the minimum sequence length (bp) to be retained
 min_seq_length <- 200
-#max_seq_length is the maximum sequence length to be retained
+#max_seq_length is the maximum sequence length (bp) to be retained
 max_seq_length <- 10000000
 ########################################################################################################
 PIPELINE_DIR <- "/path/to/ONT_preprocessing_pipeline"
