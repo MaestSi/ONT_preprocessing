@@ -49,9 +49,9 @@ require_two_barcodes_flag <- 0
 #min read quality value
 min_qual <- 7
 #min_seq_length is the minimum sequence length to be retained
-min_seq_length <- 300
+min_seq_length <- 200
 #max_seq_length is the maximum sequence length to be retained
-max_seq_length <- 100000
+max_seq_length <- 10000000
 ########################################################################################################
 PIPELINE_DIR <- "/path/to/ONT_preprocessing_pipeline"
 #MINICONDA DIR
