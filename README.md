@@ -1,5 +1,5 @@
 # ONT_preprocessing
-**ONT_preprocessing** is a preprocessing pipeline for the analysis of ONT data.
+**ONT_preprocessing** is a preprocessing pipeline for ONT data.
 
 ## Getting started
 
