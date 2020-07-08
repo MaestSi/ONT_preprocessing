@@ -219,7 +219,10 @@ if (!dir.exists(d2_preprocessing)) {
     for (i in 1:length(fastq_files)) {
       num_reads_tot <- num_reads_tot + length(grep(x = readLines(fastq_files[i]), pattern = "^\\+$"))
     }
-    system(paste0("cat ", paste0(fastq_files, collapse = " "), " > ", d2_preprocessing, "/BC01_tmp1.fastq"))
+    system(paste0("cat ", paste0(fastq_files, collapse = " "), " > ", d2_preprocessing, "/BC01_tmp0.fastq"))
+    cat(text = paste0("Adapters trimming started at ", date()), file = logfile, sep = "\n", append = TRUE)
+    cat(text = paste0("Adapters trimming started at ", date()), sep = "\n")
+    system(paste0(PORECHOP, " -i ",  d2_preprocessing, "/BC01_tmp0.fastq -o ",  d2_preprocessing, "/BC01_tmp1.fastq --extra_end_trim ", extra_ends_trimming_length))
     cat(text = "\n", file = logfile, append = TRUE)
     cat(text = "\n")
   } else {

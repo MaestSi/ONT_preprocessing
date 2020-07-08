@@ -25,7 +25,7 @@ conda config --add channels anaconda
 conda config --add channels conda-forge
 conda config --add channels bioconda
 
-conda create -n ONT_preprocessing_env seqtk r bioconductor-biostrings NanoFilt
+conda create -n ONT_preprocessing_env seqtk r bioconductor-biostrings NanoFilt porechop
 source activate ONT_preprocessing_env
 python -m pip install pycoQC
 

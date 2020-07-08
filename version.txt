@@ -1,1 +1,1 @@
-ONT_preprocessing-v1.0.0
+ONT_preprocessing-v1.1.0

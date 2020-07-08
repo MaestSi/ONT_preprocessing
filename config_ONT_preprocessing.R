@@ -72,3 +72,6 @@ SEQTK <- paste0(MINICONDA_DIR, "/envs/ONT_preprocessing_env/bin/seqtk")
 PYCOQC <- paste0(MINICONDA_DIR, "/envs/ONT_preprocessing_env/bin/pycoQC")
 #NANOFILT
 NANOFILT <- paste0(MINICONDA_DIR, "/envs/ONT_preprocessing_env/bin/NanoFilt")
+#PORECHOP
+PORECHOP <- paste0(MINICONDA_DIR, "/envs/ONT_preprocessing_env/bin/porechop")
+
