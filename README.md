@@ -36,7 +36,7 @@ chmod 755 *
 ./install.sh
 ```
 
-A conda environment named _ONT_preprocessing\_env_ is created, where seqtk, NanoFilt, pycoQC and R with package Biostrings are installed.
+A conda environment named _ONT_preprocessing\_env_ is created, where seqtk, NanoFilt, pycoQC, Porechop and R with package Biostrings are installed.
 Then, you can open the **config_ONT_pipeline.R** file with a text editor and set the variables _PIPELINE_DIR_ and _MINICONDA_DIR_ to the value suggested by the installation step.
 
 ## Usage
