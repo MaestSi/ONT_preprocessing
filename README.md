@@ -64,3 +64,9 @@ Outputs (saved in \<fast5_dir\>\_analysis/basecalling):
 
 Outputs (saved in \<fast5_dir\>\_analysis/preprocessing):
 * Temporary files for demultiplexing, filtering based on read length and quality and adapters trimming
+
+## Citation
+
+If this tool is useful for your work, please consider citing our [manuscript](https://www.mdpi.com/2073-4425/10/6/468).
+
+Maestri S, Cosentino E, Paterno M, Freitag H, Garces JM, Marcolungo L, Alfano M, Njunjić I, Schilthuizen M, Slik F, Menegon M, Rossato M, Delledonne M. A Rapid and Accurate MinION-Based Workflow for Tracking Species Biodiversity in the Field. Genes. 2019; 10(6):468.
