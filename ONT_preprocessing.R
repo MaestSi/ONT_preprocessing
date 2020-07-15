@@ -275,7 +275,7 @@ if (!dir.exists(d2_preprocessing)) {
     }
   }
   
-  demu_files <- list.files(path = d2_preprocessing, pattern = "BC", full.names = TRUE)
+  demu_files <- list.files(path = d2_preprocessing, pattern = "_tmp1\\.fastq", full.names = TRUE)
   for (i in 1:length(demu_files)) {
     BC_val_curr <- substr(x = basename(demu_files[i]), start = 3, stop = 4)
     if (paste0("BC", BC_val_curr) %in% BC_int) {
