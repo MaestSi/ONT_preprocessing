@@ -17,7 +17,7 @@ chmod 755 Miniconda3-latest-Linux-x86_64.sh
 
 Then, after completing _ONT_preprocessing_ installation, set the _MINICONDA_DIR_ variable in **config_ONT_preprocessing.R** to the full path to miniconda3 directory.
 
-* Guppy, the software for basecalling and demultiplexing provided by ONT. Tested with Guppy v4.2.
+* Guppy, the software for basecalling and demultiplexing provided by ONT. Tested with Guppy v6.0.
 If you don't have [Guppy](https://community.nanoporetech.com/downloads) installed, choose an appropriate version and install it.
 For example, you could download and unpack the archive with:
 ```
@@ -34,6 +34,12 @@ git clone https://github.com/MaestSi/ONT_preprocessing.git
 cd ONT_preprocessing
 chmod 755 *
 ./install.sh
+```
+
+Otherwise, you can download a docker image with:
+
+```
+docker pull maestsi/ont_preprocessing:latest
 ```
 
 A conda environment named _ONT_preprocessing\_env_ is created, where seqtk, NanoFilt, pycoQC, Porechop and R with package Biostrings are installed.
@@ -67,6 +73,10 @@ Outputs (saved in \<fast5_dir\>\_analysis/preprocessing):
 
 ## Citation
 
-If this tool is useful for your work, please consider citing our [manuscript](https://www.mdpi.com/1422-0067/21/23/9177).
+If this tool is useful for your work, please consider citing our [ma](https://www.mdpi.com/1422-0067/21/23/9177)[nu](https://www.mdpi.com/2076-0817/11/2/199)[scripts](https://www.mdpi.com/2223-7747/11/6/779).
 
 Maestri, S.; Maturo, M.G.; Cosentino, E.; Marcolungo, L.; Iadarola, B.; Fortunati, E.; Rossato, M.; Delledonne, M. A Long-Read Sequencing Approach for Direct Haplotype Phasing in Clinical Settings. Int. J. Mol. Sci. 2020, 21, 9177.
+
+Marcolungo L, Passera A, Maestri S, Segala E, Alfano M, Gaffuri F, Marturano G, Casati P, Bianco PA, Delledonne M. Real-Time On-Site Diagnosis of Quarantine Pathogens in Plant Tissues by Nanopore-Based Sequencing. Pathogens. 2022 Feb 2;11(2):199.
+
+Tarquini, G.; Martini, M.; Maestri, S.; Firrao, G.; Ermacora, P. The Virome of ‘Lamon Bean’: Application of MinION Sequencing to Investigate the Virus Population Associated with Symptomatic Beans in the Lamon Area, Italy. Plants 2022, 11, 779.
