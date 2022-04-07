@@ -30,10 +30,10 @@ kit <- "SQK-LSK109"
 flowcell <- "FLO-MIN106"
 #barcode_kits <- c("EXP-NBD103", "EXP-NBD104", "EXP-NBD114", "EXP-PBC001", "EXP-PBC096", "SQK-16S024", "SQK-LWB001", "SQK-PBK004", "SQK-PCB109", "SQK-RAB201", "SQK-RAB204", "SQK-RBK001", "SQK-RBK004", "SQK-RLB001", "SQK-RPB004", "VSK-VMK001", "VSK-VMK002")
 barcode_kits <- "EXP-NBD104"
-#gpu_basecalling_flag <- 1 if you want to perform GPU-accelerated basecalling
-gpu_basecalling_flag <- 0
-#conf_par_gpu is the name of the config file and the device for GPU-accelerated basecalling in case gpu_basecalling_flag <- 1
-conf_par_gpu <- " -c dna_r9.4.1_450bps_hac.cfg --device 'auto' "
+#conf_basecalling_flag <- 1 if you want to specify a configuration file for base-calling (and additional parameters) insted of choosing the default by specifying kit and flowcell
+conf_basecalling_flag <- 0
+#conf_par_basecalling is the name of the config file (and additional parameters, such as the device for GPU-accelerated basecalling) in case config_basecalling_flag <- 1
+conf_par_basecalling <- " -c dna_r9.4.1_450bps_hac.cfg --device 'auto' "
 #fast_basecalling_flag_cpu <- 1 if you want to use the fast basecalling algorithm for R9.4 flow-cell; otherwise set fast_basecalling_flag_cpu <- 0 if you want to use the accurate but slow one
 fast_basecalling_flag_cpu <- 1
 #pair_strands_flag_cpu <- 1 if, in case a 1d2 kit and FLO-MIN107 flow-cell have been used, you want to perform 1d2 basecalling; otherwise set pair_strands_flag_cpu <- 0
