@@ -35,8 +35,8 @@ if (!exists("num_fast5_files")) {
   num_fast5_files <- 25
 }
 
-if (!exists("gpu_basecalling_flag") || pair_strands_flag_cpu == 1) {
-  gpu_basecalling_flag <- 0
+if (!exists("conf_basecalling_flag") || pair_strands_flag_cpu == 1) {
+  conf_basecalling_flag <- 0
 }
 
 if (!exists("fast_basecalling_flag_cpu") || flowcell == "FLO-MIN107") {
@@ -191,8 +191,8 @@ if (!dir.exists(d2_basecalling)) {
   cat(text = paste0("Basecalling started at ", date()), file = logfile, sep = "\n", append = TRUE)
   cat(text = paste0("Basecalling started at ", date()), sep = "\n")
   num_threads_caller <- round(num_threads/4)
-  if (gpu_basecalling_flag == 1) {
-    system(paste0(basecaller, " -r -i ", d1, " -s ", d2_basecalling, " ", conf_par_gpu, " --disable_pings"))
+  if (conf_basecalling_flag == 1) {
+    system(paste0(basecaller, " -r -i ", d1, " -s ", d2_basecalling, " ", conf_par_basecalling, " --disable_pings"))
   } else {
     if (fast_basecalling_flag_cpu == 1) {
       system(paste0(basecaller, " -r -i ", d1, " --cpu_threads_per_caller ", num_threads_caller, " --num_callers 4", " -c dna_r9.4.1_450bps_fast.cfg -s ", d2_basecalling, " --disable_pings"))
@@ -200,7 +200,7 @@ if (!dir.exists(d2_basecalling)) {
       system(paste0(basecaller, " -r -i ", d1, " --cpu_threads_per_caller ", num_threads_caller, " --num_callers 4", " --flowcell ", flowcell, " --kit ", kit, " -s ", d2_basecalling, " --disable_pings"))
     }
   }
-  if (gpu_basecalling_flag !=1 && pair_strands_flag_cpu == 1) {
+  if (conf_basecalling_flag !=1 && pair_strands_flag_cpu == 1) {
     system(paste0(basecaller, " -r -i ", d1, " --cpu_threads_per_caller ", num_threads_caller, " --num_callers 4", " --flowcell ", flowcell, " --kit ", kit, " --fast5_out -s ", d2_basecalling, " --disable_pings"))
     system(paste0(basecaller_1d2, " -r -i ", d2_basecalling, "/workspace --cpu_threads_per_caller ", num_threads_caller, " --num_callers 4", " --config dna_r9.5_450bps_1d2_raw.cfg -f ", d2_basecalling, "/sequencing_summary.txt -s ", d2, "/basecalling_1d2 --disable_pings"))
     d2_basecalling <- paste0(d2, "/basecalling_1d2")
