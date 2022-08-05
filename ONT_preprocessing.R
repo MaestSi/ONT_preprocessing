@@ -153,7 +153,7 @@ cat(text = paste0("Basecalling is going to be performed by ", basecaller_version
 if (fast_basecalling_flag_cpu == 1) {
   cat(text = "Basecalling model: fast", file = logfile, sep = "\n", append = TRUE)
   cat(text = "Basecalling model: fast", sep = "\n")
-} else if (fast_basecalling_flag_cpu != 1 || gpu_basecalling_flag == 1) {
+} else if (fast_basecalling_flag_cpu != 1 || conf_basecalling_flag == 1) {
   cat(text = "Basecalling model: high-accuracy", file = logfile, sep = "\n", append = TRUE)
   cat(text = "Basecalling model: high-accuracy", sep = "\n")
 }
@@ -190,7 +190,7 @@ if (!dir.exists(d2_basecalling)) {
   dir.create(d2_basecalling)
   cat(text = paste0("Basecalling started at ", date()), file = logfile, sep = "\n", append = TRUE)
   cat(text = paste0("Basecalling started at ", date()), sep = "\n")
-  num_threads_caller <- round(num_threads/4)
+  num_threads_caller <- ceiling(num_threads/4)
   if (conf_basecalling_flag == 1) {
     system(paste0(basecaller, " -r -i ", d1, " -s ", d2_basecalling, " ", conf_par_basecalling, " --disable_pings"))
   } else {
