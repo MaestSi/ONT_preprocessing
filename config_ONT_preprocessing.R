@@ -22,38 +22,36 @@
 do_subsampling_flag <- 0
 #num_fast5_files is the number of fast5 files to be subsampled/analysed (if do_subsampling_flag <- 1)
 num_fast5_files <- 10
+#barcodes from BC01 to BC96
+BC_int <- sprintf("%s%02d", "BC", 01:96)
+#uncomment the following line if you want to restrict the list of barcodes of interest
 #BC_int <- c("BC01", "BC02", "BC03", "BC04", "BC05", "BC06", "BC07", "BC08", "BC09", "BC10", "BC11", "BC12")
-BC_int <- c("BC01", "BC02", "BC03", "BC04", "BC05", "BC06", "BC07", "BC08", "BC09", "BC10", "BC11", "BC12")
-#kit (1D/1D^2 reads/rapid 16S)
-kit <- "SQK-LSK109"
-#flowcell chemistry (R9.4/R9.5/R10 chemistry)
-flowcell <- "FLO-MIN106"
-#barcode_kits <- c("EXP-NBD103", "EXP-NBD104", "EXP-NBD114", "EXP-PBC001", "EXP-PBC096", "SQK-16S024", "SQK-LWB001", "SQK-PBK004", "SQK-PCB109", "SQK-RAB201", "SQK-RAB204", "SQK-RBK001", "SQK-RBK004", "SQK-RLB001", "SQK-RPB004", "VSK-VMK001", "VSK-VMK002")
+#kit
+kit <- "SQK-LSK114"
+#flowcell chemistry
+flowcell <- "FLO-MIN114"
+#barcode_kits
 barcode_kits <- "EXP-NBD104"
-#conf_basecalling_flag <- 1 if you want to specify a configuration file for base-calling (and additional parameters) insted of choosing the default by specifying kit and flowcell
+#conf_basecalling_flag <- 1 if you want to specify a configuration file for base-calling (and additional parameters) instead of choosing the default (hac) by specifying kit and flowcell
 conf_basecalling_flag <- 0
 #conf_par_basecalling is the name of the config file (and additional parameters, such as the device for GPU-accelerated basecalling) in case config_basecalling_flag <- 1
-conf_par_basecalling <- " -c dna_r9.4.1_450bps_hac.cfg --device 'auto' "
-#fast_basecalling_flag_cpu <- 1 if you want to use the fast basecalling algorithm for R9.4 flow-cell; otherwise set fast_basecalling_flag_cpu <- 0 if you want to use the accurate but slow one
-fast_basecalling_flag_cpu <- 1
-#pair_strands_flag_cpu <- 1 if, in case a 1d2 kit and FLO-MIN107 flow-cell have been used, you want to perform 1d2 basecalling; otherwise set pair_strands_flag_cpu <- 0
-pair_strands_flag_cpu <- 0
+conf_par_basecalling <- " -c dna_r10.4.1_e8.2_400bps_hac --device 'auto' "
 #set the maximum number of threads to be used
-num_threads <- 32
+num_threads <- 8
 #trim extra_ends_trimming_length bp from both ends of reads
 extra_ends_trimming_length <- 0
 #if skip_demultiplexing_flag <- 1 demultiplexing is skipped; otherwise set skip_demultiplexing_flag <- 0
 skip_demultiplexing_flag <- 0
 #require_two_barcodes_flag <- 1 if you want to keep only reads with a barcode (tag) at both ends of the read; otherwise set require_two_barcodes_flag <- 0
-require_two_barcodes_flag <- 0
+require_two_barcodes_flag <- 1
 #min read quality value
-min_qual <- 7
+min_qual <- 9
 #min_seq_length is the minimum sequence length (bp) to be retained
 min_seq_length <- 200
 #max_seq_length is the maximum sequence length (bp) to be retained
 max_seq_length <- 10000000
 ########################################################################################################
-PIPELINE_DIR <- "/path/to/ONT_preprocessing_pipeline"
+PIPELINE_DIR <- "/path/to/ONT_preprocessing"
 #MINICONDA DIR
 MINICONDA_DIR <- "/path/to/miniconda3"
 #basecaller_dir
@@ -74,4 +72,3 @@ PYCOQC <- paste0(MINICONDA_DIR, "/envs/ONT_preprocessing_env/bin/pycoQC")
 NANOFILT <- paste0(MINICONDA_DIR, "/envs/ONT_preprocessing_env/bin/NanoFilt")
 #PORECHOP
 PORECHOP <- paste0(MINICONDA_DIR, "/envs/ONT_preprocessing_env/bin/porechop")
-

@@ -35,24 +35,16 @@ if (!exists("num_fast5_files")) {
   num_fast5_files <- 25
 }
 
-if (!exists("conf_basecalling_flag") || pair_strands_flag_cpu == 1) {
+if (!exists("conf_basecalling_flag")) {
   conf_basecalling_flag <- 0
-}
-
-if (!exists("fast_basecalling_flag_cpu") || flowcell == "FLO-MIN107") {
-  fast_basecalling_flag_cpu <- 0
 }
 
 if (!exists("require_two_barcodes_flag")) {
   require_two_barcodes_flag <- 0
 }
 
-if (!exists("pair_strands_flag_cpu") || flowcell != "FLO-MIN107") {
-  pair_strands_flag_cpu <- 0
-}
-
 if (!exists("min_qual")) {
-  min_qual <- 7
+  min_qual <- 9
 }
 
 if (!exists("min_seq_length")) {
@@ -92,13 +84,7 @@ if (!exists("skip_demultiplexing_flag")) {
   BC_int <- "BC01"
 }
 
-if (pair_strands_flag_cpu == 1) {
-  basecaller <- paste0(BASECALLER_DIR, "/guppy_basecaller")
-  basecaller_1d2 <- paste0(BASECALLER_DIR, "/guppy_basecaller_1d2")
-} else {
-  basecaller <- paste0(BASECALLER_DIR, "/guppy_basecaller")
-}
-
+basecaller <- paste0(BASECALLER_DIR, "/guppy_basecaller")
 demultiplexer <- paste0(BASECALLER_DIR, "/guppy_barcoder")
 
 basecaller_version <- system(paste0(basecaller, " --version"), intern = TRUE)[1]
@@ -150,14 +136,6 @@ cat(text = "\n")
 cat(text = paste0("Basecalling is going to be performed by ", basecaller_version), file = logfile, sep = "\n", append = TRUE)
 cat(text = paste0("Basecalling is going to be performed by ", basecaller_version), sep = "\n")
 
-if (fast_basecalling_flag_cpu == 1) {
-  cat(text = "Basecalling model: fast", file = logfile, sep = "\n", append = TRUE)
-  cat(text = "Basecalling model: fast", sep = "\n")
-} else if (fast_basecalling_flag_cpu != 1 || conf_basecalling_flag == 1) {
-  cat(text = "Basecalling model: high-accuracy", file = logfile, sep = "\n", append = TRUE)
-  cat(text = "Basecalling model: high-accuracy", sep = "\n")
-}
-
 if (skip_demultiplexing_flag == 1) {
   cat(text = paste0("Demultiplexing is not going to be performed; the sample will be renamed BC01"), file = logfile, sep = ", ", append = TRUE)
   cat(text = paste0("Demultiplexing is not going to be performed; the sample will be renamed BC01"), sep = ", ")
@@ -179,8 +157,7 @@ if (skip_demultiplexing_flag == 1) {
 
 cat(text = "\n", file = logfile, append = TRUE)
 cat(text = "\n")
-BC_tot <- c("BC01", "BC02", "BC03", "BC04", "BC05", "BC06", "BC07", "BC08", "BC09", "BC10", "BC11", "BC12")
-BC_tot_full <- c(BC_tot, paste0("BC", 13:99))
+BC_tot_full <- sprintf("%s%02d", "BC", 01:96)
 BC_trash <- setdiff(BC_tot_full, BC_int)
 BC_trash <- paste0("^", BC_trash)
 cat(text = "\n", file = logfile, append = TRUE)
@@ -194,16 +171,7 @@ if (!dir.exists(d2_basecalling)) {
   if (conf_basecalling_flag == 1) {
     system(paste0(basecaller, " -r -i ", d1, " -s ", d2_basecalling, " ", conf_par_basecalling, " --disable_pings"))
   } else {
-    if (fast_basecalling_flag_cpu == 1) {
-      system(paste0(basecaller, " -r -i ", d1, " --cpu_threads_per_caller ", num_threads_caller, " --num_callers 4", " -c dna_r9.4.1_450bps_fast.cfg -s ", d2_basecalling, " --disable_pings"))
-    } else {
-      system(paste0(basecaller, " -r -i ", d1, " --cpu_threads_per_caller ", num_threads_caller, " --num_callers 4", " --flowcell ", flowcell, " --kit ", kit, " -s ", d2_basecalling, " --disable_pings"))
-    }
-  }
-  if (conf_basecalling_flag !=1 && pair_strands_flag_cpu == 1) {
-    system(paste0(basecaller, " -r -i ", d1, " --cpu_threads_per_caller ", num_threads_caller, " --num_callers 4", " --flowcell ", flowcell, " --kit ", kit, " --fast5_out -s ", d2_basecalling, " --disable_pings"))
-    system(paste0(basecaller_1d2, " -r -i ", d2_basecalling, "/workspace --cpu_threads_per_caller ", num_threads_caller, " --num_callers 4", " --config dna_r9.5_450bps_1d2_raw.cfg -f ", d2_basecalling, "/sequencing_summary.txt -s ", d2, "/basecalling_1d2 --disable_pings"))
-    d2_basecalling <- paste0(d2, "/basecalling_1d2")
+    system(paste0(basecaller, " -r -i ", d1, " --cpu_threads_per_caller ", num_threads_caller, " --num_callers 4", " --flowcell ", flowcell, " --kit ", kit, " -s ", d2_basecalling, " --disable_pings"))
   }
   cat(text = paste0("Basecalling finished at ", date()), file = logfile, sep = "\n", append = TRUE)
   cat(text = paste0("Basecalling finished at ", date()), sep = "\n")
@@ -229,9 +197,9 @@ if (!dir.exists(d2_preprocessing)) {
     cat(text = paste0("Demultiplexing started at ", date()), file = logfile, sep = "\n", append = TRUE)
     cat(text = paste0("Demultiplexing started at ", date()), sep = "\n")
     if (require_two_barcodes_flag == 1) {
-      system(paste0(demultiplexer, " -r -i ", d2_basecalling, " -t ", num_threads, " -s ", d2_preprocessing, " --enable_trim_barcodes --require_barcodes_both_ends --num_extra_bases_trim ", extra_ends_trimming_length, " --barcode_kits \"", paste0(barcode_kits, collapse = " "), "\""))
+      system(paste0(demultiplexer, " -r -i ", d2_basecalling, " -t ", num_threads, " -s ", d2_preprocessing, " --trim_barcodes --require_barcodes_both_ends --num_extra_bases_trim ", extra_ends_trimming_length, " --barcode_kits \"", paste0(barcode_kits, collapse = " "), "\""))
     } else {
-      system(paste0(demultiplexer, " -r -i ", d2_basecalling, " -t ", num_threads, " -s ", d2_preprocessing, " --enable_trim_barcodes --num_extra_bases_trim ", extra_ends_trimming_length, " --barcode_kits \"", paste0(barcode_kits, collapse = " "), "\""))
+      system(paste0(demultiplexer, " -r -i ", d2_basecalling, " -t ", num_threads, " -s ", d2_preprocessing, " --trim_barcodes --num_extra_bases_trim ", extra_ends_trimming_length, " --barcode_kits \"", paste0(barcode_kits, collapse = " "), "\""))
     }
     cat(text = paste0("Demultiplexing finished at ", date()), file = logfile, sep = "\n", append = TRUE)
     cat(text = paste0("Demultiplexing finished at ", date()), sep = "\n")
@@ -267,11 +235,7 @@ if (!dir.exists(d2_preprocessing)) {
     if (skip_demultiplexing_flag == 1) {
       system(paste0(PYCOQC, " -f ", d2_basecalling, "/sequencing_summary.txt -o ", d2, "/qc/pycoQC_report.html --min_pass_qual ", min_qual))
     } else {
-      if (pair_strands_flag_cpu == 1) {
-        system(paste0(PYCOQC, " -f ", d2_basecalling, "/sequencing_summary.txt -b ", d2_preprocessing, "/barcoding_summary.txt -o ", d2, "/qc/pycoQC_report.html  --min_pass_qual ", min_qual))
-      } else {
-        system(paste0(PYCOQC, " -f ", d2_basecalling, "/sequencing_summary.txt -b ", d2_preprocessing, "/barcoding_summary.txt -o ", d2, "/qc/pycoQC_report.html --min_pass_qual ", min_qual))
-      }
+      system(paste0(PYCOQC, " -f ", d2_basecalling, "/sequencing_summary.txt -b ", d2_preprocessing, "/barcoding_summary.txt -o ", d2, "/qc/pycoQC_report.html --min_pass_qual ", min_qual))
     }
   }
   
